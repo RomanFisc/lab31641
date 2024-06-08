@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const userLogin = document.getElementById("user-log")
   const passLogin = document.getElementById("pass-log")
   const loginForm = document.getElementById("login")
+  const success = document.getElementById("successDisplay")
+  const logCheck = document.getElementById("login-check")
+
 
   const errorElement = document.getElementById('errorDisplay')
 
@@ -71,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /////// Creating login validation
   loginForm.addEventListener('submit',(e) => {
-    let messages = []
+    let messages = [] 
 
     if (userLogin.value.trim().toLowerCase() !== localStorage.getItem("username")) {
       messages.push("Username doesn't exist")
@@ -86,8 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
       errorElement.innerHTML = messages.join('<br>');
       errorElement.style.display = 'block';
     } else {
+      e.preventDefault();
       errorElement.style.display = 'none';
+      success.style.display = "block"
+      loginForm.reset()
+
+      if (logCheck.checked) {
+        let validForm = "Login Successful and you will stay logged in"
+        success.innerHTML = validForm;
+      } else {
+        let validForm = "Login Successful"
+        success.innerHTML = validForm;
+      }
     }
+
   })
 
 });
